@@ -11,6 +11,14 @@
   <p>Чат має зʼявитися внизу</p>
 
 <script>
+
+  window.chatwootSettings = {
+    position: "left",          // left | right
+    locale: "uk",              // опційно
+    type: "standard",          // опційно
+    hideMessageBubble: false,  // опційно
+  };
+  
   (function(d,t) {
     var BASE_URL="https://app.chatwoot.com";
     var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
