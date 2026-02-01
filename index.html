@@ -3,23 +3,38 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Tally popup test</title>
+  <title>Tally popup JS test</title>
 
-  <!-- 1) ПІДКЛЮЧАЄМО Tally -->
   <script async src="https://tally.so/widgets/embed.js"></script>
 </head>
 
 <body>
   <h1>Test page</h1>
-  <p>Натисни кнопку — має відкритися popup.</p>
 
-  <!-- 2) КНОПКА З data-tally-open -->
-  <button
-    data-tally-open="A7BaWl"
-    data-tally-emoji-text="👋"
-    data-tally-emoji-animation="wave"
-    style="padding:12px 18px;font-size:16px;cursor:pointer;">
-    Відкрити форму
+  <button id="open" style="padding:12px 18px;font-size:16px;cursor:pointer;">
+    Відкрити форму (JS)
   </button>
+
+  <script>
+    // Чекаємо, поки скрипт Tally завантажиться
+    function waitForTally(cb) {
+      const t = setInterval(() => {
+        if (window.Tally && typeof window.Tally.openPopup === "function") {
+          clearInterval(t);
+          cb();
+        }
+      }, 100);
+    }
+
+    waitForTally(() => {
+      document.getElementById("open").addEventListener("click", () => {
+        window.Tally.openPopup("A7BaWl", {
+          layout: "modal",
+          width: 700
+        });
+      });
+    });
+  </script>
 </body>
 </html>
+
